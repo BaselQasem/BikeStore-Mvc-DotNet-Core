@@ -1,0 +1,83 @@
+﻿@page
+@model LoginModel
+
+<style>
+    .pt-4{
+        display:flex !important;
+        justify-content:center !important;
+    }
+</style>
+
+
+<div class="row align-items-start" style="max-width:500px;">
+    
+    <div class="col">
+        <div class="row align-items-center">
+            <div class="col-md-12">
+
+                <div class="d-flex justify-content-center py-4">
+                   
+                        <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" class="bi bi-bicycle" viewBox="0 0 16 16">
+                            <path d="M4 4.5a.5.5 0 0 1 .5-.5H6a.5.5 0 0 1 0 1v.5h4.14l.386-1.158A.5.5 0 0 1 11 4h1a.5.5 0 0 1 0 1h-.64l-.311.935.807 1.29a3 3 0 1 1-.848.53l-.508-.812-2.076 3.322A.5.5 0 0 1 8 10.5H5.959a3 3 0 1 1-1.815-3.274L5 5.856V5h-.5a.5.5 0 0 1-.5-.5zm1.5 2.443-.508.814c.5.444.85 1.054.967 1.743h1.139L5.5 6.943zM8 9.057 9.598 6.5H6.402L8 9.057zM4.937 9.5a1.997 1.997 0 0 0-.487-.877l-.548.877h1.035zM3.603 8.092A2 2 0 1 0 4.937 10.5H3a.5.5 0 0 1-.424-.765l1.027-1.643zm7.947.53a2 2 0 1 0 .848-.53l1.026 1.643a.5.5 0 1 1-.848.53L11.55 8.623z" />
+                        </svg>
+                  
+                </div>
+                <div class="card mb-3" style="border:0 !important;box-shadow:0px 0 30px rgb(1 41 112 / 10%)">
+                    <div class="card-body">
+                        <div class="pt-3 pb-2">
+                            <h5 class="card-title text-center pb-0 fs-4"
+                                style="color:#012970;font-family: revert, sans-serif;font-weight:500;">
+                                Login to Your Account
+                            </h5>
+                            <p class="text-center small" style="font-family: revert, sans-serif;">Enter your Email &amp; password to login</p>
+
+                        </div><form id="account" method="post" class="row g-3 needs-validation">
+                            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                            <div class="col-12">
+                                <label for="yourUsername" class="form-label" style="font-family: revert, sans-serif;">Email</label>
+                                <div class="input-group has-validation">
+                                    <span class="input-group-text" id="inputGroupPrepend">@@</span>
+                                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+                                    <div class="invalid-feedback">
+                                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <label for="yourPassword" class="form-label" style=" font-family: revert, sans-serif;">Password</label>
+                                <input asp-for="Input.Password" class="form-control" autocomplete="current-password" aria-required="true" />
+                                <div class="invalid-feedback"> <span asp-validation-for="Input.Password" class="text-danger"></span></div>
+
+
+
+                            </div>
+
+
+                            <div class="col-12">
+                                <div class="form-check">
+                                    <label asp-for="Input.RememberMe" class="form-label" style="font-family: revert, sans-serif;">
+                                        <input class="form-check-input" asp-for="Input.RememberMe" />Remember Me
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button id="login-submit" type="submit" class=" btn btn-lg btn-primary w-100" style="font-family: serif, sans-serif;font-size:1rem">Log in</button>
+                            </div>
+                            <div class="col-12">
+
+                                <a asp-page="./Register" asp-route-returnUrl="@Model.ReturnUrl" style="text-decoration:none;font-family: serif, sans-serif;">Register as a new user</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+ 
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+
+

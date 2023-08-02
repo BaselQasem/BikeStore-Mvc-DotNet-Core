@@ -1,0 +1,121 @@
+﻿@model BikeStore.Models.OrderItemViewModel
+<partial name="~/Views/Shared/_ValidationScript.cshtml" />
+
+<table id="productsBody" class="table table-secondary">
+    <thead>
+        <tr>
+            <th scope="col">Product Name</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Discount</th>
+            <th scope="col">ListPrice</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr id="pRow">
+            <td>
+                <div class="dropdown">
+                    <select id="Products" onchange="GetPrice()" class="form-select"  asp-items="@(new SelectList((List<ProductViewModel>)ViewData["ProductList"],"ProductId","ProductName"))">
+                        <option value="0">--Select Product--</option>
+                    </select>
+                </div>
+            </td>
+            <td>
+                <input id="Quantity"  style="width:100px" maxlength="10000" onchange="CalculatePrice()" class="form-control" type="number" />
+            </td>
+            <td>
+                <input id="Discount" style="width:100px" maxlength="4" onchange="CalculatePrice()" class="form-control" type="text" />
+
+            </td>
+            <td>
+                <input id="ListPrice" disabled  style="width:100px" class="form-control" type="text" />
+                <input id="hiddenPrice" type="hidden" />
+            </td>
+            <td>
+                <button data-id="" 
+                        class="btn btn-primary delete" value="Add Product" onclick="AddProduct();return false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cart-plus" viewBox="0 0 16 16">
+                        <path d="M9 5.5a.5.5 0 0 0-1 0V7H6.5a.5.5 0 0 0 0 1H8v1.5a.5.5 0 0 0 1 0V8h1.5a.5.5 0 0 0 0-1H9V5.5z" />
+                        <path d="M.5 1a.5.5 0 0 0 0 1h1.11l.401 1.607 1.498 7.985A.5.5 0 0 0 4 12h1a2 2 0 1 0 0 4 2 2 0 0 0 0-4h7a2 2 0 1 0 0 4 2 2 0 0 0 0-4h1a.5.5 0 0 0 .491-.408l1.5-8A.5.5 0 0 0 14.5 3H2.89l-.405-1.621A.5.5 0 0 0 2 1H.5zm3.915 10L3.102 4h10.796l-1.313 7h-8.17zM6 14a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm7 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+                    </svg>Add Product
+                </button>
+            </td>
+
+        </tr>
+
+    </tbody>
+
+</table>
+<input id="ProdCount" type="hidden" value="0" />
+<script>
+    function CalculatePrice() {
+        $("#ListPrice").val($("#Quantity").val() * $("#hiddenPrice").val() );
+
+        if ($("#Discount").val() == null || $("#Discount").val().length === 0) {
+            $("#ListPrice").val($("#Quantity").val() * $("#hiddenPrice").val());
+        }
+        else
+        {
+            $("#ListPrice").val($("#Quantity").val() * $("#hiddenPrice").val()-($("#Quantity").val() * $("#hiddenPrice").val() * $("#Discount").val()));
+
+        }
+    }
+
+    function GetPrice() {
+
+        var productId = $('#Products').find(":selected").val();
+        $.ajax({
+            type: "GET",
+            url: "/order/ProductPrice",
+            data: { "productId": productId },
+            success: function(response) {
+                $('#ListPrice').attr('value', parseFloat(response));
+                $("#hiddenPrice").attr('value', parseFloat(response));
+                $("#Quantity").val("");
+                $("#Discount").val("");
+            },
+            failure: function(response) {
+                alert(response.responseText);
+            },
+            error: function(response) {
+                alert(response.responseText);
+            }
+        })
+    }
+
+    function AddProduct() {
+
+        
+        var btn = "<button  class='btn btn-danger delete' value='Delete' data-id=" + $('#Products').find(":selected").val() + " onclick=deleteProduct(this)  >" +
+            "<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='currentColor' class='bi bi-dash' viewBox='0 0 16 16'>" +
+            "<path d='M4 8a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7A.5.5 0 0 1 4 8z' />" +
+            "</svg></button>"
+        $("#productsBody tbody").append("<tr style='text-align: center;vertical-align:baseline; font-weight: 600;'><td><input type='hidden' name='OrderItems[" + $("#ProdCount").val() + "].ProductId' value='" + $('#Products').find(":selected").val() + "' / >" + $('#Products').find(":selected").text() + "</td>"
+            + "<td><input type='hidden' name='OrderItems[" + $("#ProdCount").val() + "].Quantity' value='" + $("#Quantity").val() + "' />" + $("#Quantity").val() + "</td>"
+            + "<td><input type='hidden' name='OrderItems[" + $("#ProdCount").val() + "].Discount' value='" + $("#Discount").val() + "' />" + $("#Discount").val() + "</td><td>"
+            + "<input type='hidden' name='OrderItems[" + $("#ProdCount").val() + "].ListPrice' value=" + $("#ListPrice").val() + " />" + $("#ListPrice").val() + "</td>"
+            + "<td>" + btn + "<input type='hidden' name = 'OrderItems[" + $("#ProdCount").val() + "].ItemId' value =" + (parseInt($("#ProdCount").val()) + 1) + " /></td></tr>");
+        
+        $("#ProdCount").val(parseInt($("#ProdCount").val()) + 1);
+       
+        $('#Products').prop('selectedIndex', 0);
+        $("#Quantity").val("");
+        $("#Discount").val("");
+        $("#ListPrice").val("");
+    }
+
+    function deleteProduct(obj) {
+       
+        var ele = $(obj);
+        var Id = ele.data("id");
+
+        ele.parent().parent().remove();
+        $("#ProdCount").val(parseInt($("#ProdCount").val()) - 1);
+    }
+</script>
+
+
+            
+    
+    
+    

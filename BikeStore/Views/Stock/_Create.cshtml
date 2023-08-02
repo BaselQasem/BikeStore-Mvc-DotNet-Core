@@ -1,0 +1,67 @@
+﻿@model BikeStore.Models.StockViewModel
+<partial name="~/Views/Shared/_ValidationScript.cshtml" />
+
+<div class="modal fade" id="AddModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add New Stock</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+            <form method="post" enctype="multipart/form-data" asp-controller="Stock" asp-action="Create">
+                <div class="modal-body">
+                <div class="row">
+                    <div class="col">
+                        <label>Product</label>
+                        <div class="dropdown">
+                                <select class="form-select" asp-for="ProductId" asp-items="@(new SelectList(@ViewBag.ProductList,"ProductId","ProductName"))">
+                                <option value="0">--Select Product--</option>
+                            </select>
+
+                        </div>
+                        <div class="validation-Layout">
+                            <span class="alert alert-danger" role="alert" asp-validation-for="ProductId"></span>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <label>Store</label>
+                        <div class="dropdown">
+                            <select class="form-control" asp-for="StoreId" asp-items="@(new SelectList(@ViewBag.StoreList,"StoreId","StoreName"))">
+                                <option value="0">--Select Store--</option>
+                            </select>
+
+                        </div>
+                        <div class="validation-Layout">
+                            <span class="alert alert-danger" role="alert" asp-validation-for="StoreId"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                            <div class="col">
+                                <label>Quantity</label>
+                                <input class="form-control" asp-for="Quantity" maxlength="7" type="number" placeholder="Quantity" aria-label="Quantity">
+                                <div class="validation-Layout">
+                                    <span class="alert alert-danger" role="alert" asp-validation-for="Quantity"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                <div class="modal-footer" tabindex="1">
+
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input name="submit" type="submit" class="btn btn-primary" data-save="modal" value="Add" />
+
+                </div>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+

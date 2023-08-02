@@ -1,0 +1,41 @@
+﻿@model BikeStore.Models.BrandViewModel
+ <partial name="~/Views/Shared/_ValidationScript.cshtml" />
+
+<div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add New Brand</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+            <form method="post" enctype="multipart/form-data" asp-controller="brand" asp-action="SaveEdit">
+
+                <div class="modal-body">
+
+                    <label>Brand Name</label><br />
+                    <input type="hidden" asp-for="BrandId" />
+                    <input type="text" asp-for="BrandName" maxlength="255" />
+                    <div class="validation-Layout">
+                        <span class="alert alert-danger" role="alert" asp-validation-for="BrandName"></span>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer" tabindex="1">
+
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input id="Save"  name="submit" type="submit" class="btn btn-primary" data-save="modal" value="Save" />
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+@*<script>
+function SaveChange(obj) {
+
+}
+</script>*@

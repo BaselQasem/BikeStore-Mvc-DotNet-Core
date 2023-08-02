@@ -1,0 +1,136 @@
+﻿@using BikeStore.Classes
+@model BikeStore.Models.OrderViewModel
+<partial name="~/Views/Shared/_ValidationScript.cshtml" />
+
+<div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit  Order</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+            <form method="post" enctype="multipart/form-data" asp-controller="Order" asp-action="SaveEdit">
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="row">
+                            <div class="col">
+                                <label>Customer Name</label>
+                                <div class="dropdown ">
+                                      <input type="hidden"  asp-for="OrderId" class="form-control" />
+                                    <select   class="form-select" asp-for="CustomerId" asp-items="@(new SelectList(@ViewBag.CustomerList,"CustomerId","FullName"))">
+                                        <option value="0">--Select Customer--</option>
+                                    </select>
+                                </div>
+                                <div class="validation-Layout">
+                                    <span class="alert alert-danger" role="alert" asp-validation-for="CustomerId"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label>Order Status</label>
+                                <div class="dropdown">
+                                    <select class="form-select" asp-for="OrderStatus">
+                                        <option value="0">--select Status--</option>
+                                        <option value="1">Pending</option>
+                                        <option value="2">Processing</option>
+                                        <option value="3">Rejected</option>
+                                        <option value="4">Completed</option>
+
+                                    </select>
+                                </div>
+                                <div class="validation-Layout">
+                                    <span class="alert alert-danger" role="alert" asp-validation-for="OrderStatus"></span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label>Order Date </label>
+                                <input type="date" readonly="readonly" asp-for="OrderDate" class="form-control" />
+                                <div class="validation-Layout">
+                                    <span class="alert alert-danger" role="alert" asp-validation-for="OrderDate"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label>Required Date </label>
+                                <input type="date" readonly="readonly" asp-for="RequiredDate" class="form-control" />
+                                <div class="validation-Layout">
+                                    <span class="alert alert-danger" role="alert" asp-validation-for="RequiredDate"></span>
+                                </div>
+                            </div>
+                            <div class="col">
+
+                                <label>Shipped Date </label>
+                                <input type="date" readonly="readonly" asp-for="ShippedDate" class="form-control" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <label>Store Name</label>
+                                <div class="dropdown">
+                                    <select readonly="readonly" class="form-select" asp-for="StoreId" asp-items="@(new SelectList(@ViewBag.StoreList,"StoreId","StoreName"))">
+                                        <option value="0">--Select Store --</option>
+                                    </select>
+                                    <div class="validation-Layout">
+                                        <span class="alert alert-danger" role="alert" asp-validation-for="StoreId"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="col">
+                                <label>Staff Name</label>
+                                <div class="dropdown">
+                                    <select class="form-select" asp-for="StaffId" asp-items="@(new SelectList(@ViewBag.StaffList,"StaffId","FullName"))">
+                                        <option value="0">--Select Staff --</option>
+                                    </select>
+                                </div>
+                                <div class="validation-Layout">
+                                    <span class="alert alert-danger" role="alert" asp-validation-for="StaffId"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <table class="table table-secondary" >
+                                    <tr>
+                                        <th style="text-align: center;" scope="col">Product Name</th>
+                                        <th style="text-align: center;" scope="col">Quantity</th>
+                                        <th style="text-align: center;" scope="col">Discount</th>
+                                        <th style="text-align: center;" scope="col">ListPrice</th>
+                                        
+                                    </tr>
+                                @foreach (var itm in Model.OrderItems)
+                                {
+                                        <tr style="text-align: center; vertical-align:baseline; font-weight: 600;">
+                                        <td>@itm.Product.ProductName</td>
+                                        <td> @itm.Quantity</td>
+
+                                        <td>@itm.Discount</td>
+                                        <td>@itm.ListPrice</td>
+                                    </tr>
+                                    }
+                                </table>
+                               @* <partial name="_CreateItem.cshtml" for="OrderItems" view-data="ViewData" />*@
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer" tabindex="1">
+
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input name="submit" type="submit" class="btn btn-primary" data-save="modal" value="Save" />
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+

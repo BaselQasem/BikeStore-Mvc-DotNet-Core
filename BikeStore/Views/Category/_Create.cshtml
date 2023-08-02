@@ -1,0 +1,36 @@
+﻿@model BikeStore.Models.CategoryViewModel
+ <partial name="~/Views/Shared/_ValidationScript.cshtml" />
+
+
+
+<div class="modal fade" id="AddModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add New Category</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+            <form method="post" enctype="multipart/form-data" asp-controller="Category" asp-action="Create">
+
+                <div class="modal-body">
+
+                    <label>Category Name</label><br />
+                    <input type="text" asp-for="CategoryName" />
+                    <div class="validation-Layout">
+                    <span class="alert alert-danger" role="alert" asp-validation-for="CategoryName"></span>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer" tabindex="1">
+
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input name="submit" type="submit" class="btn btn-primary" data-save="modal" value="Add" />
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

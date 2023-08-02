@@ -1,0 +1,98 @@
+﻿@model BikeStore.Models.CustomerViewModel
+ <partial name="~/Views/Shared/_ValidationScript.cshtml" />
+
+
+<div class="modal fade " id="AddModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add New Customer</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+            <form method="post" enctype="multipart/form-data" asp-controller="Customer" asp-action="Create">
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="row">
+                            <div class="col">
+                                <label>First Name</label>
+                                <input class="form-control" asp-for="FirstName" maxlength="255" type="text" placeholder="First Name" aria-label="First Name">
+                                <div class="validation-Layout">
+                                    <span class="alert alert-danger" role="alert" asp-validation-for="FirstName"></span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label>Last Name</label>
+                                <input class="form-control" asp-for="LastName" maxlength="255" type="text" placeholder="Last Name" aria-label="Last Name">
+                                <div class="validation-Layout">
+                                    <span class="alert alert-danger" role="alert" asp-validation-for="LastName"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label>Phone</label>
+                                <input class="form-control" asp-for="Phone" maxlength="25" type="text" placeholder="Phone" aria-label="Phone">
+                                <div class="validation-Layout">
+                                    <span class="alert alert-danger" role="alert" asp-validation-for="Phone"></span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label>Email</label>
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text" id="basic-addon1">@@</span>
+                                    <input class="form-control" asp-for="Email" maxlength="255" type="email" placeholder="Email@example.com" aria-label="Email">
+
+                                </div>
+                                <div class="validation-Layout">
+                                    <span class="alert alert-danger" role="alert" asp-validation-for="Email"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                 <label>Street</label>
+                                <input class="form-control" asp-for="Street" maxlength="255" type="text" placeholder="Street" aria-label="Street">
+                                <div class="validation-Layout">
+                                    <span class="alert alert-danger" role="alert" asp-validation-for="Street"></span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                 <label>City</label>
+                                <input class="form-control" asp-for="City" maxlength="50" type="text" placeholder="City" aria-label="City">
+                                <div class="validation-Layout">
+                                    <span class="alert alert-danger" role="alert" asp-validation-for="City"></span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                 <label>State</label>
+                                <input class="form-control" asp-for="State" maxlength="25" type="text" placeholder="State" aria-label="State">
+                                <div class="validation-Layout">
+                                    <span class="alert alert-danger" role="alert" asp-validation-for="State"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                 <label>Zip Code</label>
+                                <input class="form-control" asp-for="ZipCode" maxlength="5" type="text" placeholder="ZipCode" aria-label="ZipCode">
+                                <div class="validation-Layout">
+                                    <span class="alert alert-danger" role="alert" asp-validation-for="ZipCode"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer" tabindex="1">
+
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input name="submit" type="submit" class="btn btn-primary" data-save="modal" value="Add" />
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>

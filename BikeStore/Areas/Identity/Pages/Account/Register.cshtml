@@ -1,0 +1,115 @@
+﻿@page
+@model RegisterModel
+@{
+    ViewData["Title"] = "Register";
+}
+
+
+
+<style>
+    .pt-4 {
+        display: flex !important;
+        justify-content: center !important;
+    }
+</style>
+
+
+
+
+
+<div class="row align-items-start" style="max-width:500px;">
+
+<div class="card mb-3">
+
+    <div class="card-body">
+
+        <div class="pt-3 pb-2">
+            <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
+            <p class="text-center small">Enter your personal details to create account</p>
+        </div>
+
+        <form id="registerForm" asp-route-returnUrl="@Model.ReturnUrl" method="post" class="row g-3 needs-validation">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="col-12">
+                <label asp-for="Input.FirstName" class="form-label"></label>
+
+                <input asp-for="Input.FirstName" class="form-control" autocomplete="FirstName" aria-required="true" />
+                <span asp-validation-for="Input.FirstName" class="text-danger"></span>
+
+            </div>
+
+            <div class="col-12">
+                <label asp-for="Input.LastName" class="form-label"></label>
+
+                <input asp-for="Input.LastName" class="form-control" autocomplete="LastName" aria-required="true" />
+                <span asp-validation-for="Input.LastName" class="text-danger"></span>
+            </div>
+            <div class="col-12">
+                <label asp-for="Input.Email" class="form-label"></label>
+                <div class="input-group has-validation">
+                    <span class="input-group-text" id="inputGroupPrepend">@@</span>
+                    <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" />
+                    <div class="invalid-feedback">Please choose a username.</div>
+                </div>
+
+
+
+                <span asp-validation-for="Input.Email" class="text-danger"></span>
+            </div>
+            <div class="col-12">
+                <label asp-for="Input.Password" class="form-label"></label>
+
+                <input asp-for="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" />
+                <span asp-validation-for="Input.Password" class="text-danger"></span>
+
+            </div>
+            <div class="col-12">
+
+                <label asp-for="Input.ConfirmPassword" class="form-label"></label>
+
+                <input asp-for="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" />
+                <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
+
+            </div>
+
+
+            <div class="col-12">
+                <div class="form-check">
+                    <input class="form-check-input" name="terms" type="checkbox" value="" id="acceptTerms" required>
+                    <label class="form-check-label" for="acceptTerms">I agree and accept the <a href="#">terms and conditions</a></label>
+                    <div class="invalid-feedback">You must agree before submitting.</div>
+                </div>
+            </div>
+            <div class="col-12">
+                <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            </div>
+            <div class="col-12">
+                <p class="small mb-0">Already have an account? <a href="">Log in</a></p>
+            </div>
+        </form>
+
+    </div>
+</div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

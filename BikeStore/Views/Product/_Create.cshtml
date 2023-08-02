@@ -1,0 +1,90 @@
+﻿@model BikeStore.Models.ProductViewModel
+<partial name="~/Views/Shared/_ValidationScript.cshtml" />
+
+<div class="modal fade" id="AddModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Add New Product</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+            <form method="post" enctype="multipart/form-data" asp-controller="Product" asp-action="Create">
+
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="row">
+                            <div class="col">
+                                <label>Product Name</label>
+                                <input class="form-control" asp-for="ProductName" maxlength="255" type="text" placeholder="Product Name" aria-label="Product Name">
+                                <div class="validation-Layout">
+                                    <span class="alert alert-danger" role="alert" asp-validation-for="ProductName"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label>Brand</label>
+                                <div class="dropdown">
+                                    <select class="form-select" asp-for="BrandId" asp-items="@(new SelectList(@ViewBag.BrandList,"BrandId","BrandName"))">
+                                        <option value="0">--Select Brand--</option>
+                                    </select>
+
+                                </div>
+                                <div class="validation-Layout">
+                                    <span class="alert alert-danger" role="alert" asp-validation-for="BrandId"></span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label>Category</label>
+                                <div class="dropdown">
+                                    <select class="form-select" asp-for="CategoryId" asp-items="@(new SelectList(@ViewBag.CategoryList,"CategoryId","CategoryName"))">
+                                        <option value="0">--Select Category--</option>
+                                    </select>
+
+                                </div>
+                                <div class="validation-Layout">
+                                    <span class="alert alert-danger" role="alert" asp-validation-for="CategoryId"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label>Model Year</label>
+                                <input class="form-control" asp-for="ModelYear" maxlength="4" type="text" placeholder="Model Year" aria-label="Model Year">
+                                <div class="validation-Layout">
+                                    <span class="alert alert-danger" role="alert" asp-validation-for="ModelYear"></span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label>List Price</label>
+                                <div class="input-group mb-3">
+                                    
+                                    <span class="input-group-text">$</span>
+                                    <input class="form-control" asp-for="ListPrice" maxlength="10" type="text" placeholder="List Price" aria-label="List Price">
+                                    <span class="input-group-text">.00</span>
+                                </div>
+
+                                <div class="validation-Layout">
+                                    <span class="alert alert-danger" role="alert" asp-validation-for="ListPrice"></span>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer" tabindex="1">
+
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input name="submit" type="submit" class="btn btn-primary" data-save="modal" value="Add" />
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+

@@ -1,0 +1,41 @@
+﻿@using Core.Entities 
+
+<input id="pageNume" type="hidden" value="@(((TableQuery)ViewBag.Filtered).PageNumber)" />
+<input id="pagesCount" type="hidden" value="@(((TableQuery)ViewBag.Filtered).PagesCount)" />
+<input id="Sorting" type="hidden" value="@(((TableQuery)ViewBag.Filtered).Sorting)" />
+
+<nav aria-label="...">  
+    <ul class="pagination">
+        <li class="@(((TableQuery)ViewBag.Filtered).PageNumber ==1 ? "page-item disabled" : "page-item")">
+            <a id="First" class="page-link" href="#" tabindex="-1" onclick='FirstPage("@ViewBag.url")' aria-disabled="true">First</a>
+        </li>
+        <li class="@(((TableQuery)ViewBag.Filtered).PageNumber==1 ? "page-item disabled" : "page-item")">
+            <a id="Prev" class="page-link" href="#" tabindex="-1" onclick='PrevPage("@ViewBag.url")' aria-disabled="true">Previous</a>
+        </li>
+        @{
+            //var Pc = ((TableQuery)ViewBag.Filtered).PageCount > 9 ? 10 : ((TableQuery)ViewBag.Filtered).PageCount;
+            var CentringPager=((TableQuery)ViewBag.Filtered).PageNumber > 5 ? 5 : 0;
+            for (int n = ((TableQuery)ViewBag.Filtered).PageNumber - CentringPager; n < (((TableQuery)ViewBag.Filtered).PageNumber + 10 - CentringPager); n++)
+            {
+                if ( n <= ((TableQuery)ViewBag.Filtered).PagesCount)
+                {
+                    <li class="@(((TableQuery)ViewBag.Filtered).PageNumber==n ? "page-item active" : "page-item")" aria-current="page">
+                        <a class="page-link" onclick='RanPage(@n,"@ViewBag.url")' href="#">@n</a>
+                        </li>
+               } else{
+                    break;
+                }
+
+            }
+        }
+        <li class="@(((TableQuery)ViewBag.Filtered).PagesCount == ((TableQuery)ViewBag.Filtered).PageNumber ? "page-item disabled" : "page-item")">
+            <a id="Next" class="page-link " href="#" onclick='NextPage("@ViewBag.url")'>Next</a>
+        </li>
+        <li class="@(((TableQuery)ViewBag.Filtered).PageNumber==((TableQuery)ViewBag.Filtered).PagesCount ? "page-item disabled" : "page-item")">
+            <a id="Last" class="page-link" href="#" tabindex="-1" onclick='LastPage(" @ViewBag.url")' aria-disabled="true">Last</a>
+        </li>
+    </ul>
+</nav>
+
+<div class="text-bg-primary p-3" style="color:#0d6efd">    Page   @(((TableQuery)ViewBag.Filtered).PageNumber) of @(((TableQuery)ViewBag.Filtered).PagesCount) </div>
+

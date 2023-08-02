@@ -1,0 +1,102 @@
+﻿@model BikeStore.Models.StaffViewModel
+ <partial name="~/Views/Shared/_ValidationScript.cshtml" />
+
+
+<div class="modal fade" id="EditModal" tabindex="-1" aria-labelledby="exampleModalLabel">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Edit Staff</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+            </div>
+            <form method="post" enctype="multipart/form-data" asp-controller="Staff" asp-action="SaveEdit">
+ 
+                 <div class="modal-body">
+                    <div class="row">
+                        <div class="row">
+                            <div class="col">
+                                <input type="hidden" asp-for="StaffId"  />
+                                <label>First Name</label>
+                                <input class="form-control" asp-for="FirstName" maxlength="50" type="text" placeholder="Firs Name" aria-label="Firs Name">
+                                <div class="validation-Layout">
+                                    <span class="alert alert-danger" role="alert" asp-validation-for="FirstName"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label>Last Name</label>
+                                <input class="form-control" asp-for="LastName" maxlength="50" type="text" placeholder="Last Name" aria-label="Last Name">
+                                <div class="validation-Layout">
+                                    <span class="alert alert-danger" role="alert" asp-validation-for="LastName"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <label>Email</label>
+                                <input class="form-control" asp-for="Email" maxlength="255" type="text" placeholder="Email" aria-label="Email">
+                                <div class="validation-Layout">
+                                    <span class="alert alert-danger" role="alert" asp-validation-for="Email"></span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label>Phone</label>
+                                <input class="form-control" asp-for="Phone" maxlength="25" type="text" placeholder="Phone" aria-label="Phone">
+                                <div class="validation-Layout">
+                                    <span class="alert alert-danger" role="alert" asp-validation-for="Phone"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <label>Store</label>
+                                <div class="dropdown">
+                                    <select class="form-select" asp-for="StoreId" asp-items="@(new SelectList(@ViewBag.StoreList,"StoreId","StoreName"))">
+                                        <option value="0">--Select Store--</option>
+                                    </select>
+
+                                </div>
+                                <div class="validation-Layout">
+                                    <span class="alert alert-danger" role="alert" asp-validation-for="StoreId"></span>
+                                </div>
+                            </div>
+                            <div class="col">
+                                <label>Manager</label>
+                                <div class="dropdown">
+                                    <select class="form-select" asp-for="ManagerId" asp-items="@(new SelectList(@ViewBag.ManagerList,"StaffId","FirstName"))">
+                                        <option value="0">--Select Manager--</option>
+                                    </select>
+
+                                </div>
+                                <div class="validation-Layout">
+                                    <span class="alert alert-danger" role="alert" asp-validation-for="ManagerId"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                             <div class="col">
+                                <input class="form-check-input" asp-for="Active" type="checkbox" value="Active" aria-label="Active Staff" />
+                                <label>Active Staff</label>
+                                <div class="validation-Layout">
+                                    <span class="alert alert-danger" role="alert" asp-validation-for="Active"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer" tabindex="1">
+
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <input name="submit" type="submit" class="btn btn-primary" data-save="modal" value="Save" />
+
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
